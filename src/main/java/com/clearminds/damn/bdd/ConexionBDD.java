@@ -1,5 +1,6 @@
 package com.clearminds.damn.bdd;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -12,11 +13,15 @@ import com.clearminds.damn.excepciones.BDDException;
 
 public class ConexionBDD {
 
+	static final String JDBC_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
 	
 	public static String leerPropiedad(String nombrePropiedad){
 		Properties p = new Properties();		
 		try {
-			p.load(new FileReader("./conexion.properties"));
+			File f=new File("conexion.properties");
+			System.out.println("ruta:"+f.getAbsoluteFile());
+
+			p.load(new FileReader("conexion.properties"));			
 			return p.getProperty(nombrePropiedad);
 		} catch (FileNotFoundException e) {			
 			e.printStackTrace();
@@ -35,9 +40,11 @@ public class ConexionBDD {
 		String url = leerPropiedad("urlConexion");		
 		Connection conn = null;
 		if (user != null && pass != null && url != null) {
-			try {
+			
+			try {				
+				Class.forName(JDBC_DRIVER);
 				conn = DriverManager.getConnection(url, user, pass);				
-			} catch (SQLException e) {				
+			} catch (Exception e) {				
 				e.printStackTrace();
 				throw new BDDException("No se pudo conectar a la base de datos");
 			}
