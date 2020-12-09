@@ -8,7 +8,8 @@ public class TestServicio {
 	public static void main(String[] args) {
 		ServicioEstudiante srvEstudinate = new ServicioEstudiante();
 		try {
-			srvEstudinate.insertarEstudiante(new Estudiante("Juan", "Perez"));
+			srvEstudinate
+				.insertarEstudiante(new Estudiante("Juan", "Perez"));
 		} catch (BDDException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
