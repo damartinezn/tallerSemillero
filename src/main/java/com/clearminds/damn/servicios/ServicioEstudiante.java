@@ -1,21 +1,14 @@
 package com.clearminds.damn.servicios;
 
+
+import com.clearminds.dam.dtos.Estudiante;
 import com.clearminds.damn.excepciones.BDDException;
 
 public class ServicioEstudiante extends ServicioBase {
-	/**
-	 * NOTAMOS QUE SI SE DA LA HERENCIA
-	 */
-	@Override
-	public void abrirConexion() throws BDDException {
-		// TODO Auto-generated method stub
-		super.abrirConexion();
-	}
 
-	@Override
-	public void cerrarConexion() {
-		// TODO Auto-generated method stub
-		super.cerrarConexion();
+	public void insertarEstudiante(Estudiante estudiante) throws BDDException {
+		abrirConexion();
+		System.out.println("insertando estudiante :" + estudiante);
+		cerrarConexion();
 	}
-
 }
