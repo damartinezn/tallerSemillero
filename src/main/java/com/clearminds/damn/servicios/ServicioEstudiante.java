@@ -1,6 +1,5 @@
 package com.clearminds.damn.servicios;
 
-
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -15,8 +14,11 @@ public class ServicioEstudiante extends ServicioBase {
 		Statement stmt = null;
 		try {
 			stmt = getConexion().createStatement();
-			String sql = "insert into estudiantes(nombre,apellido) values('"+
-					estudiante.getNombre()+"','"+estudiante.getApellido()+"')";
+			String sql = "";
+
+			sql = "insert into estudiantes(nombre,apellido,edad) values('" + estudiante.getNombre() + "','"
+					+ estudiante.getApellido() + "'," + ((estudiante.getEdad() > 0)? estudiante.getEdad():null) + ")";
+
 			System.out.println("Script : " + sql);
 			stmt.executeUpdate(sql);
 			cerrarConexion();
@@ -24,18 +26,17 @@ public class ServicioEstudiante extends ServicioBase {
 			e.printStackTrace();
 			throw new BDDException("Error al insertar estudiante");
 		}
-		
+
 	}
-	
+
 	public void actualizarEstudiante(Estudiante estudiante) throws BDDException {
 		abrirConexion();
 		System.out.println("actualizando estudiante :" + estudiante);
 		Statement stmt = null;
 		try {
 			stmt = getConexion().createStatement();
-			String sql = "update estudiantes set  nombre = '"+
-					estudiante.getNombre()+"', apellido = '"+estudiante.getApellido()
-					+"' where id = " + estudiante.getId();
+			String sql = "update estudiantes set  nombre = '" + estudiante.getNombre() + "', apellido = '"
+					+ estudiante.getApellido() + "', edad = "+ ((estudiante.getEdad() > 0)? estudiante.getEdad():null)+" where id = " + estudiante.getId();
 			System.out.println("Script : " + sql);
 			stmt.executeUpdate(sql);
 			cerrarConexion();
@@ -43,6 +44,6 @@ public class ServicioEstudiante extends ServicioBase {
 			e.printStackTrace();
 			throw new BDDException("Error al actualizar estudiante");
 		}
-		
+
 	}
 }
